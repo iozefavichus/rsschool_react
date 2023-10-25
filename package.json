@@ -13,7 +13,7 @@
     "prettier": "prettier --check src",
     "prettier:fix": "prettier --write src",
     "commitlint": "commitlint --edit",
-    "format:fix": "prettier --write src"
+    "format:fix": "prettier --write *.(js,css,ts,tsx,jsx)"
   },
   "dependencies": {
     "husky-init": "^8.0.0",
@@ -46,7 +46,8 @@
   },
   "lint-staged": {
     "*.(ts|tsx|js|jsx)": [
-      "npm run format:fix"
+      "npm run lint:fix",
+      "git add"
     ]
   }
 }

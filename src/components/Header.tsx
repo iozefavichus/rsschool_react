@@ -2,7 +2,18 @@ import { Component } from 'react';
 
 class Header extends Component {
   render() {
-    return <h1>Here will be header</h1>;
+    return (
+      <form>
+        <input
+          className="input-search"
+          placeholder="Enter text ..."
+          type="search"
+        ></input>
+        <button className="button" type="submit">
+          Search
+        </button>
+      </form>
+    );
   }
 }
 

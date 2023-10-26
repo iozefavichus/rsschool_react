@@ -1,18 +1,49 @@
-import { Component } from 'react';
+import { ChangeEvent, Component } from 'react';
 
-class Header extends Component {
+type MyProps = Record<string, never>;
+type MyState = { value: string };
+
+class Header extends Component<MyProps, MyState> {
+  constructor(props: MyProps) {
+    super(props);
+    const LsSearch = localStorage.getItem('search');
+    this.state = {
+      value: LsSearch ? JSON.parse(LsSearch) : '',
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault;
+    this.setState({
+      value: this.state.value,
+    });
+    localStorage.setItem('search', JSON.stringify(this.state.value));
+  };
+
+  handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target) {
+      this.setState({
+        value: event.target.value,
+      });
+    }
+  };
+
   render() {
     return (
-      <form>
+      <div>
         <input
           className="input-search"
           placeholder="Enter text ..."
-          type="search"
+          type="text"
+          id="search"
+          onChange={this.handleChange}
+          value={this.state.value}
         ></input>
-        <button className="button" type="submit">
+        <button className="button" onClick={this.handleClick}>
           Search
         </button>
-      </form>
+      </div>
     );
   }
 }

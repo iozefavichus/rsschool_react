@@ -1,8 +1,9 @@
 import { Component } from 'react';
+import Data from '../data/API';
 
 class Catalog extends Component {
   render() {
-    return <h1>Here will be catalog</h1>;
+    return <Data></Data>;
   }
 }
 

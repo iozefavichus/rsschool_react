@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Card } from '../components/Card';
 
 type MyProps = {
   name: string;
@@ -9,33 +10,29 @@ class Data extends Component {
     super(props);
     this.state = {
       isLoaded: false,
-      apiInfo: 'default',
+      apiInfo: [],
     };
   }
 
   componentDidMount() {
     fetch('https://rickandmortyapi.com/api/character')
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (jsonData) {
-        return JSON.stringify(jsonData);
-      })
-      .then((jsonStr) => {
+      .then((response) => response.json())
+      .then((response) =>
         this.setState({
+          apiInfo: response.results,
           isLoaded: true,
-          apiInfo: jsonStr,
-        });
-        // console.log(jsonStr);
-      });
+        })
+      );
   }
 
   render() {
     const { apiInfo } = this.state;
     return (
-      <tr>
-        <td>{apiInfo}</td>
-      </tr>
+      <div>
+        {apiInfo.map((el, index) => (
+          <Card key={index} {...el} />
+        ))}
+      </div>
     );
   }
 }

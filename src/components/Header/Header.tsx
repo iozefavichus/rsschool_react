@@ -13,6 +13,10 @@ class Header extends Component<MyProps, MyState> {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentWillUnmount() {
+    localStorage.setItem('search', JSON.stringify(this.state.value));
+  }
+
   handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault;
     this.setState({

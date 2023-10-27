@@ -5,7 +5,7 @@ import styles from './card.module.css';
 export interface CardProps {
   id: number;
   name: string;
-  src: string;
+  image: string;
   status: string;
   species: string;
   gender: string;
@@ -13,18 +13,18 @@ export interface CardProps {
 
 class Card extends Component<CardProps> {
   render() {
-    const { id, name, src, status, species, gender } = this.props;
+    const { id, name, image, status, species, gender } = this.props;
     return (
       <div className={styles.card}>
         <div className={styles.image}>
-          <img src={src} alt={id.toString()} />
+          <img src={image} alt={id.toString()} />
         </div>
         <div className={styles.info}>
           <div className={styles.wrapper}>
-            <div className={styles.name}>{name}</div>
-            <div className={styles.status}>{status}</div>
-            <div className={styles.species}>{species}</div>
-            <div className={styles.gender}>{gender}</div>
+            <div className={styles.name}>Name:{name}</div>
+            <div className={styles.status}>Status: {status}</div>
+            <div className={styles.species}>Species: {species}</div>
+            <div className={styles.gender}>Gender: {gender}</div>
           </div>
         </div>
       </div>

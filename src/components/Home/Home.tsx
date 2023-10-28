@@ -12,7 +12,6 @@ class Home extends Component<Record<string, never>, { search: string }> {
       search: localStorage.getItem('search') || '',
     };
     this.handleChangeSearch = this.handleChangeSearch.bind(this);
-    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChangeSearch(search: string) {

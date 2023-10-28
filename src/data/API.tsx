@@ -17,7 +17,6 @@ class Data extends Component {
 
   componentDidMount() {
     console.log('API loaded...');
-    this.setState({ search: this.props.search });
     fetch(
       `https://rickandmortyapi.com/api/character/?name=${this.props.search}`
     )
@@ -37,6 +36,51 @@ class Data extends Component {
         }
       );
   }
+
+  componentDidUpdate() {
+    console.log('API loaded...');
+    fetch(
+      `https://rickandmortyapi.com/api/character/?name=${this.props.search}`
+    )
+      .then((response) => response.json())
+      .then(
+        (response) => {
+          this.setState({
+            apiInfo: response.results,
+            isLoaded: true,
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error,
+          });
+        }
+      );
+  }
+
+  // componentDidUpdate() {
+  //   console.log('API loaded...');
+  //   this.setState({ search: this.props.search });
+  //   fetch(
+  //     `https://rickandmortyapi.com/api/character/?name=${this.props.search}`
+  //   )
+  //     .then((response) => response.json())
+  //     .then(
+  //       (response) => {
+  //         this.setState({
+  //           apiInfo: response.results,
+  //           isLoaded: true,
+  //         });
+  //       },
+  //       (error) => {
+  //         this.setState({
+  //           isLoaded: true,
+  //           error,
+  //         });
+  //       }
+  //     );
+  // }
 
   render() {
     const { error, isLoaded, apiInfo } = this.state;

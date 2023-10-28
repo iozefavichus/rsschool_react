@@ -1,29 +1,18 @@
-import { ChangeEvent, Component } from 'react';
+import { Component, ChangeEvent } from 'react';
 
-type MyProps = Record<string, never>;
-type MyState = { value: string };
-
-class Header extends Component<MyProps, MyState> {
-  constructor(props: MyProps) {
+class Header extends Component<Record<string, never>, { value: string }> {
+  constructor(props: Record<string, never>) {
     super(props);
-    const LsSearch = localStorage.getItem('search');
+
     this.state = {
-      value: LsSearch ? JSON.parse(LsSearch) : '',
+      value: this.props.search,
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentWillUnmount() {
-    localStorage.setItem('search', JSON.stringify(this.state.value));
+  componentWillUnmount(): void {
+    localStorage.setItem('search', this.state.value);
   }
-
-  handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault;
-    this.setState({
-      value: this.state.value,
-    });
-    localStorage.setItem('search', JSON.stringify(this.state.value));
-  };
 
   handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target) {
@@ -33,15 +22,21 @@ class Header extends Component<MyProps, MyState> {
     }
   };
 
+  handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault;
+    this.props.onChangeSearch(this.state.value);
+    localStorage.setItem('search', this.state.value);
+  };
+
   render() {
     return (
       <div>
         <input
+          onChange={this.handleChange}
           className="input-search"
           placeholder="Enter text ..."
           type="text"
           id="search"
-          onChange={this.handleChange}
           value={this.state.value}
         ></input>
         <button className="button" onClick={this.handleClick}>

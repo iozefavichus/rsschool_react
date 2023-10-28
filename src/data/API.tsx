@@ -1,24 +1,25 @@
 import { Component } from 'react';
-import { Card } from '../components/Card';
+import { Card } from '../components/Card/Card';
 
 type MyProps = {
-  searchValue: string;
+  search: string;
 };
 
 class Data extends Component {
   constructor(props: MyProps) {
     super(props);
-    const search = localStorage.getItem('search')?.slice(1, -1);
     this.state = {
       isLoaded: false,
       apiInfo: [],
-      searchValue: search ? search : '',
+      search: this.props.search,
     };
   }
 
   componentDidMount() {
+    console.log('API loaded...');
+    this.setState({ search: this.props.search });
     fetch(
-      `https://rickandmortyapi.com/api/character/?name=${this.state.searchValue}`
+      `https://rickandmortyapi.com/api/character/?name=${this.props.search}`
     )
       .then((response) => response.json())
       .then(
@@ -38,10 +39,15 @@ class Data extends Component {
   }
 
   render() {
-    const { apiInfo } = this.state;
+    const { error, isLoaded, apiInfo } = this.state;
+    if (error) {
+      return <p>Error {error.message}</p>;
+    } else if (!isLoaded) {
+      return <p>Loading...</p>;
+    }
     return (
       <div>
-        {apiInfo.map((el, index) => (
+        {apiInfo.map((el, index: number) => (
           <Card key={index} {...el} />
         ))}
       </div>

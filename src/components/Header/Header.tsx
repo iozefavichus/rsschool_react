@@ -1,8 +1,17 @@
 import { Component, ChangeEvent } from 'react';
 import styles from './header.module.css';
 
-class Header extends Component<Record<string, never>, { value: string }> {
-  constructor(props: Record<string, never>) {
+type MyProps = {
+  search?: string | undefined;
+  onChangeSearch(a: string): void;
+};
+
+type MyState = {
+  value: string | undefined;
+};
+
+class Header extends Component<MyProps, MyState> {
+  constructor(props: MyProps) {
     super(props);
 
     this.state = {
@@ -12,7 +21,9 @@ class Header extends Component<Record<string, never>, { value: string }> {
   }
 
   componentWillUnmount(): void {
-    localStorage.setItem('search', this.state.value);
+    if (this.state.value) {
+      localStorage.setItem('search', this.state.value);
+    }
   }
 
   handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -25,8 +36,12 @@ class Header extends Component<Record<string, never>, { value: string }> {
 
   handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault;
-    this.props.onChangeSearch(this.state.value);
-    localStorage.setItem('search', this.state.value);
+    if (this.state.value) {
+      this.props.onChangeSearch(this.state.value);
+    }
+    if (this.state.value) {
+      localStorage.setItem('search', this.state.value);
+    }
   };
 
   render(): JSX.Element {

@@ -3,14 +3,14 @@ import Data from '../../data/API';
 import { Component } from 'react';
 
 type MyProps = {
-  search: string;
+  search?: string | undefined;
 };
 
 type MyState = {
   search: string;
 };
 
-class Home extends Component<MyState> {
+class Home extends Component<MyProps, MyState> {
   constructor(props: MyProps) {
     super(props);
     this.state = {

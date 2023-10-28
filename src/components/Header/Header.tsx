@@ -1,4 +1,5 @@
 import { Component, ChangeEvent } from 'react';
+import styles from './header.module.css';
 
 class Header extends Component<Record<string, never>, { value: string }> {
   constructor(props: Record<string, never>) {
@@ -28,12 +29,12 @@ class Header extends Component<Record<string, never>, { value: string }> {
     localStorage.setItem('search', this.state.value);
   };
 
-  render() {
+  render(): JSX.Element {
     return (
-      <div>
+      <div className={styles.searchbar}>
         <input
           onChange={this.handleChange}
-          className="input-search"
+          className={styles.input_search}
           placeholder="Enter text ..."
           type="text"
           id="search"

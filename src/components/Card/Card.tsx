@@ -11,6 +11,15 @@ export interface CardProps {
   gender: string;
 }
 
+export interface CardType {
+  id: number;
+  name: string;
+  image: string;
+  status: string;
+  species: string;
+  gender: string;
+}
+
 class Card extends Component<CardProps> {
   render() {
     const { id, name, image, status, species, gender } = this.props;

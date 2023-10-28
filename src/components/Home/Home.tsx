@@ -1,13 +1,18 @@
 import Header from '../Header/Header';
-// import Catalog from '../Catalog';
 import Data from '../../data/API';
-
 import { Component } from 'react';
 
-class Home extends Component<Record<string, never>, { search: string }> {
-  constructor(props: Record<string, never>) {
-    super(props);
+type MyProps = {
+  search: string;
+};
 
+type MyState = {
+  search: string;
+};
+
+class Home extends Component<MyState> {
+  constructor(props: MyProps) {
+    super(props);
     this.state = {
       search: localStorage.getItem('search') || '',
     };
@@ -16,12 +21,6 @@ class Home extends Component<Record<string, never>, { search: string }> {
 
   handleChangeSearch(search: string) {
     this.setState({ search: search });
-    console.log('hhhh');
-  }
-
-  handleChange() {
-    this.setState({ search: this.props.search });
-    console.log('fff');
   }
 
   render(): JSX.Element {
@@ -31,7 +30,7 @@ class Home extends Component<Record<string, never>, { search: string }> {
           search={this.state.search}
           onChangeSearch={this.handleChangeSearch}
         ></Header>
-        <Data search={this.state.search} onChange={this.handleChange}></Data>
+        <Data search={this.state.search}></Data>
       </div>
     );
   }
